@@ -68,6 +68,9 @@ git commit -m "Pipeline updating version to $VERSION [skip ci]"
 set -e -o pipefail
 
 # Push the updated branch
+if [ ! -z "$GITHUB_TOKEN" ]; then
+  git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/misbar1802/Infisign-Socket-Service.git"
+fi
 git push origin HEAD:$parent_branch
 
 # Create and push a new branch for the release
