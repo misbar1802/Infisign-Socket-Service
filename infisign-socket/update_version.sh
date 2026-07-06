@@ -19,9 +19,9 @@ echo "Current directory: $(pwd)"
 echo "Contents:"
 ls -al
 
-parent_branch=${1:-staging}
-if [ "$parent_branch" != "staging" ]; then
-  echo "This script can only be run on the staging branch. Exiting."
+parent_branch=${1:-main}
+if [ "$parent_branch" != "main" ] && [ "$parent_branch" != "staging" ]; then
+  echo "This script can only be run on main or staging branches. Exiting."
   exit 1
 fi
 
@@ -31,11 +31,11 @@ if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   exit 128
 fi
 
-# Fetch and check out the staging branch
-git fetch origin staging
-git checkout staging
+# Fetch and check out the parent branch
+git fetch origin $parent_branch
+git checkout $parent_branch
 
-echo "Current branch: staging"
+echo "Current branch: $parent_branch"
 
 # Read the current version from the VERSION file
 if [ ! -f VERSION ]; then
@@ -68,7 +68,7 @@ git commit -m "Pipeline updating version to $VERSION [skip ci]"
 set -e -o pipefail
 
 # Push the updated branch
-git push origin HEAD:staging
+git push origin HEAD:$parent_branch
 
 # Create and push a new branch for the release
 RELEASE_BRANCH="infisign-socket/$VERSION"
