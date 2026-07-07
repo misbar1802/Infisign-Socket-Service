@@ -1,19 +1,19 @@
 metadata:
-  name: infisign-socket-deployment
+  name: socket-deployment
   labels:
-    app: infisign-socket
+    app: socket
 spec:
   replicaCount: 1
   selector:
     matchLabels:
-      app: infisign-socket
+      app: socket
   template:
     metadata:
       labels:
-        app: infisign-socket
+        app: socket
 image:
   repository: 003304347306.dkr.ecr.us-east-1.amazonaws.com/be-microservice
-  tag: infisign-socket-staging
+  tag: socket-staging
   imagePullSecrets:
     - name: regcred
   # Overrides the image tag whose default is the chart appVersion.

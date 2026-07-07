@@ -74,7 +74,7 @@ fi
 git push origin HEAD:$parent_branch
 
 # Create and push a new branch for the release
-RELEASE_BRANCH="infisign-socket/$VERSION"
+RELEASE_BRANCH="socket/$VERSION"
 git checkout -b $RELEASE_BRANCH
 git push origin $RELEASE_BRANCH
 

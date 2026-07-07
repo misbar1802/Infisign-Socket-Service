@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "infisign-socket.name" -}}
+{{- define "socket-service.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "infisign-socket.fullname" -}}
+{{- define "socket-service.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "infisign-socket.chart" -}}
+{{- define "socket-service.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "infisign-socket.labels" -}}
-helm.sh/chart: {{ include "infisign-socket.chart" . }}
-{{ include "infisign-socket.selectorLabels" . }}
+{{- define "socket-service.labels" -}}
+helm.sh/chart: {{ include "socket-service.chart" . }}
+{{ include "socket-service.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "infisign-socket.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "infisign-socket.name" . }}
+{{- define "socket-service.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "socket-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "infisign-socket.serviceAccountName" -}}
+{{- define "socket-service.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "infisign-socket.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "socket-service.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
